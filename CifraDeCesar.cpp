@@ -1,5 +1,3 @@
-/*beecrowd | 1253
-Cifra de César*/
 #include <iostream>
 
 using namespace std;
@@ -20,10 +18,11 @@ int main (void){
         int tamanho = cifra.length();
 
         for(int j=0; j<tamanho; j++){
+            descifra = (cifra[j]);
             for(int k=0; k<deslocamento; k++){
-                descifra = (cifra[j]-1);
+                descifra = (descifra-1);
 
-                if(descifra <= 64){
+                if(descifra == 64){
                     descifra = 90;
                 }
             }
