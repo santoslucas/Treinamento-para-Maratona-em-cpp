@@ -1,54 +1,55 @@
 /*beecrowd | 1255
 Frequência de Letras*/
 
-#include <stdio.h>
-#include <string.h>
+#include <iostream>
 
-int main(){
+using namespace std;
 
-    char frase[200];
-    char a[]="abcdefghijklmnopqrstuvwxyz", A[]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //"a" é o alfabeto minúsculo e "A" o maiúsculo
-    int num_testes, cont_letras[26];
-    int j, k, maior_rep;
+int main (void)
+{
+    int casos;
+    cin >> casos;
+    cin.ignore();
+    char alfa[27] = "abcdefghijklmnopqrstuvwxyz";
 
-    scanf("%i ",&num_testes);
+    while(casos--)
+    {
+        int contador[26] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
-    while(num_testes--){
+        string frase;
+        getline(cin, frase);
+        int tamanho = frase.size();
+        int maisRepetido=0;
 
-        gets(frase);
-        //lê a frase
+        for (int i = 0; i < tamanho; i++)
+        {   
+            char aux = tolower(frase[i]);
+            if (aux>=97 && aux<=122)
+            {
+                for (int j = 0; j < 26; j++)
+                {
+                    if (aux == alfa[j]) 
+                    {
+                        contador[j]++;
 
-        for(j=0; j<26; j++){ //zera todas entradas do contador de letras (cont_letras[26])
-            cont_letras[j] = 0;
-        }
+                        if (contador[j] > maisRepetido)
+                        {
+                            maisRepetido = contador[j];
+                        }
 
-        for(j=0; j<strlen(frase); j++){ //passa por todo string
-            for(k=0; k<26; k++){ //passa por todas letras do alfabeto (maiusculas e minusculas)
-                if(a[k] == frase[j]  ||  A[k] == frase[j]){
-                    cont_letras[k]++;
-                    break;
-                    //se a letra do string for igual a letra na posição "k" do alfabeto o contador conta +1 repetição para essa letra
-                    // exemplo: k=0 (letra a ou A) / frase[j]=a / contador soma +1 a posição cont_letras[0], ou seja, +1 a letra "a"
+                        break;
+                    }
                 }
             }
         }
-        maior_rep = cont_letras[0];
-        for(k=1; k<26; k++){
-            if(cont_letras[k] > maior_rep){
-                maior_rep = cont_letras[k];
-            }
-        //passa por todos numeros de repetição das 26 letras de cont_letras[26]
-        //se a letra mais repetida é maior que "maior_rep" o valor (cont_letras[k] é salvo como "maior_rep"
-        }
 
-        for(k=0; k<26; k++){
-            if(cont_letras[k] == maior_rep){
-               printf("%c",a[k]);
+        for (int i = 0; i < 26; i++)
+        {
+            if (contador[i] == maisRepetido)
+            {
+                cout << alfa[i];
             }
-        //passa por todos numeros de repetição das 26 letras de cont_letras[26]
-        //como algumas letras podem ter repetido na mesma frequencia, todas letras repetidas na mesma frequencia que "maior_rep" são exibidas
         }
-
-        printf("\n"); //espaço para a próxima frase
+        cout << endl;
     }
 }
